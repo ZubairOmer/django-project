@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
@@ -9,6 +9,10 @@ def register(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            username =
-    form = UserCreationForm
+            username = form.cleaned_data.get('username')
+            message.success(
+                request, f'welcome {{username}} your account has been created ')
+            return redirect('food:index')
+    else:
+        form = UserCreationForm
     return render(request, 'users/register.html', {'form': form})
