@@ -6,11 +6,12 @@ from django.contrib import messages
 
 
 def register(request):
+    form = UserCreationForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            message.success(
+            messages.success(
                 request, f'welcome {{username}} your account has been created ')
             return redirect('food:index')
     else:
